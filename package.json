@@ -1,0 +1,43 @@
+{
+  "name": "vpex-starter",
+  "version": "1.0.0",
+  "description": "Vue, Parcel, Express starter",
+  "main": "main.js",
+  "scripts": {
+    "client:dev": "parcel index.html",
+    "server:dev": "nodemon ./server/app.js --watch ./server",
+    "dev": "concurrently --kill-others 'npm run client:dev' 'npm run server:dev' || true",
+    "client:prod": "parcel build index.html",
+    "server:prod": "pm2 start ./server/app.js",
+    "build": "npm run client:prod",
+    "serve": "npm run server:prod",
+    "prebuild": "rm -rf dist",
+    "test": "jest --coverage"
+  },
+  "author": "yuttakhanbaingen@gmail.com",
+  "license": "ISC",
+  "browserslist": "> 0.25%, not dead",
+  "dependencies": {
+    "autoprefixer": "^9.4.4",
+    "axios": "^0.18.0",
+    "compression": "^1.7.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "mustard-ui": "0.0.8",
+    "nodemon": "^1.18.7",
+    "vue": "^2.5.17"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@vue/component-compiler-utils": "^2.3.0",
+    "concurrently": "^4.0.1",
+    "jest": "^24.5.0",
+    "parcel-bundler": "^1.12.3",
+    "sass": "^1.14.3",
+    "supertest": "^4.0.2",
+    "vue-hot-reload-api": "^2.3.1",
+    "vue-template-compiler": "^2.5.17"
+  }
+}
