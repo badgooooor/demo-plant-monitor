@@ -5,6 +5,8 @@
       <div class="container">
         <h1>{{ message }}</h1>
         <p>Health check : {{ apiTest }}<span v-if="socketConnected"> Socket connected!</span></p>
+        <p>Soil Humidity : {{ soilHumidity }}</p>
+        <p>Light Intensity : {{ lightIntensity }}</p>
       </div>
     </main>
     <footer></footer>
@@ -27,13 +29,21 @@ export default {
     this.socket.on('connect', () => {
       this.socketConnected = true
     })
+    this.socket.on('currentSensorValue', (data) => {
+      this.socketConnected = true
+      this.soilHumidity = data.soilHumidity
+      this.lightIntensity = data.lightIntensity
+      console.log(`${this.soilHumidity}, ${this.lightIntensity}`)
+    })
   },
   data() {
     return {
-      message: 'Vue, Parcel, Express Starter',
+      message: 'Your lovely plant health-check',
       apiTest: '',
       socket: io('localhost:3000'),
       socketConnected: false,
+      soilHumidity: 0,
+      lightIntensity: 0
     };
   },  
   methods: {
