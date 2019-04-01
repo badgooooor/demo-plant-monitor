@@ -4,7 +4,7 @@
     <main>
       <div class="container">
         <h1>{{ message }}</h1>
-        <p>{{ apiTest }}</p>
+        <p>Health check : {{ apiTest }}<span v-if="socketConnected"> Socket connected!</span></p>
       </div>
     </main>
     <footer></footer>
@@ -13,6 +13,7 @@
 
 <script>
 import axios from 'axios'
+import io from 'socket.io-client'
 const apiHost = process.env.API_HOST || ''
 
 export default {
@@ -23,13 +24,18 @@ export default {
   mounted() {
     console.log('mounted')
     this.getData()
+    this.socket.on('connect', () => {
+      this.socketConnected = true
+    })
   },
   data() {
     return {
       message: 'Vue, Parcel, Express Starter',
-      apiTest: ''
+      apiTest: '',
+      socket: io('localhost:3000'),
+      socketConnected: false,
     };
-  },
+  },  
   methods: {
     async getData() {
       try {

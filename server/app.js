@@ -25,7 +25,16 @@ app.use('/', (req, res, next) => {
 })
 
 io.on('connection', (socket) => {
-  console.log('a user connected', socket.id)
+  console.log('a user connected ', socket.id)
+
+  socket.on('disconnect', function () {
+    console.log('user disconnected ', socket.id)
+  })
+
+  socket.on('chat message', function (msg) {
+    console.log('socket by : ', socket.id, ' message: ' + msg)
+    io.emit('chat message', msg)
+  })
 })
 
 http.listen(port, host, console.log("Server listening on http://" + host + ":" + port))
