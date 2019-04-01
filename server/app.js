@@ -17,6 +17,17 @@ const io = require('socket.io')(http)
 app.use(compression());
 app.use(express.static(path.resolve('./dist')));
 
+// Get sensor value. == currently mockup
+function getSensorValue() {
+  let sH = (Math.random() * 100).toFixed(2)
+  let lI = (Math.random() * 100).toFixed(2)
+  console.log(`Sensor value from main ctl: ${sH}, ${lI}`)
+  return {
+    soilHumidity: sH,
+    lightIntensity: lI
+  }
+}
+
 // API Routes
 app.use('/api', require('./api'));
 
@@ -31,10 +42,9 @@ io.on('connection', (socket) => {
     console.log('user disconnected ', socket.id)
   })
 
-  socket.on('chat message', function (msg) {
-    console.log('socket by : ', socket.id, ' message: ' + msg)
-    io.emit('chat message', msg)
-  })
+  setInterval(() => {
+    socket.emit('currentSensorValue', getSensorValue())
+  }, 10000)
 })
 
 http.listen(port, host, console.log("Server listening on http://" + host + ":" + port))
