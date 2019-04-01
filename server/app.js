@@ -11,6 +11,9 @@ const port = process.env.PORT || 3000;
 process.env.TZ = 'Asia/Bangkok';
 process.env.isDev = isDev
 
+var http = require('http').Server(app)
+const io = require('socket.io')(http)
+
 app.use(compression());
 app.use(express.static(path.resolve('./dist')));
 
@@ -21,5 +24,9 @@ app.use('/', (req, res, next) => {
   res.sendFile( path.join(__dirname, '../', 'dist/index.html') );
 })
 
-app.listen(port, host, console.log("Server listening on http://" + host + ":" + port))
+io.on('connection', (socket) => {
+  console.log('a user connected', socket.id)
+})
+
+http.listen(port, host, console.log("Server listening on http://" + host + ":" + port))
 module.exports = app
