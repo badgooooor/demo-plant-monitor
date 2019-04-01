@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
 
   setInterval(() => {
     socket.emit('currentSensorValue', getSensorValue())
-  }, 10000)
+  }, 30000)
 })
 
 http.listen(port, host, console.log("Server listening on http://" + host + ":" + port))

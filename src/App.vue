@@ -3,10 +3,35 @@
     <nav></nav>
     <main>
       <div class="container">
-        <h1>{{ message }}</h1>
-        <p>Health check : {{ apiTest }}<span v-if="socketConnected"> Socket connected!</span></p>
-        <p>Soil Humidity : {{ soilHumidity }}</p>
-        <p>Light Intensity : {{ lightIntensity }}</p>
+        <v-container fluid fill-height>
+          <v-layout justify-center row wrap>
+            <h2>{{ message }}</h2>
+            <v-flex xs12 sm8 md4>
+              <v-card dark class="elevation-1 light-blue darken-1 flat">
+                <v-card-title primary-title>
+                  <div>
+                    <div class="headline">Server operating status</div>
+                    <ul>
+                      <li class="white-text">API    : {{ apiTest }}</li>
+                      <li class="white-text">Socket : {{ socketConnected }}</li>
+                    </ul>
+                  </div>
+                </v-card-title>
+              </v-card>
+              <v-card dark class="elevation-1 green darken-4 flat">
+                <v-card-title primary-title>
+                  <div>
+                    <div class="headline">Environment status</div>
+                    <ul>
+                      <li class="white-text">Soil Humidity : {{ soilHumidity }}</li>
+                      <li class="white-text">Light Intensity : {{ lightIntensity }}</li>
+                    </ul>
+                  </div>
+                </v-card-title>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-container>
       </div>
     </main>
     <footer></footer>
@@ -38,7 +63,7 @@ export default {
   },
   data() {
     return {
-      message: 'Your lovely plant health-check',
+      message: 'Plant Monitoring',
       apiTest: '',
       socket: io('localhost:3000'),
       socketConnected: false,
