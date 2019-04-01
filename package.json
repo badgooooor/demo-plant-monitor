@@ -26,7 +26,12 @@
     "express": "^4.16.4",
     "mustard-ui": "0.0.8",
     "nodemon": "^1.18.7",
-    "vue": "^2.5.17"
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
+    "vue": "^2.5.17",
+    "vue-resource": "^1.5.1",
+    "vue-socket.io": "^3.0.7",
+    "vuex": "^3.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
