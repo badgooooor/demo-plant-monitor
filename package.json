@@ -12,6 +12,7 @@
     "build": "npm run client:prod",
     "serve": "npm run server:prod",
     "prebuild": "rm -rf dist",
+    "production": "npm run prebuild & npm run build & npm run serve",
     "test": "jest --coverage"
   },
   "author": "yuttakhanbaingen@gmail.com",
