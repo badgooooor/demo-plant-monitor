@@ -65,7 +65,7 @@ export default {
     return {
       message: 'Plant Monitoring',
       apiTest: '',
-      socket: io('localhost:3000'),
+      socket: io(window.location.hostname),
       socketConnected: false,
       soilHumidity: 0,
       lightIntensity: 0
