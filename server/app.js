@@ -47,5 +47,5 @@ io.on('connection', (socket) => {
   }, 30000)
 })
 
-http.listen(port, host, console.log("Server listening on http://" + host + ":" + port))
+http.listen(port, console.log("Server listening on http://" + host + ":" + port))
 module.exports = app

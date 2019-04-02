@@ -8,15 +8,18 @@
     "server:dev": "nodemon ./server/app.js --watch ./server",
     "dev": "concurrently --kill-others 'npm run client:dev' 'npm run server:dev' || true",
     "client:prod": "parcel build index.html",
-    "server:prod": "pm2 start ./server/app.js",
+    "server:prod": "node ./server/app.js",
     "build": "npm run client:prod",
     "serve": "npm run server:prod",
     "prebuild": "rm -rf dist",
-    "production": "npm run prebuild & npm run build & npm run serve",
+    "start": "npm run serve",
     "test": "jest --coverage"
   },
   "author": "yuttakhanbaingen@gmail.com",
   "license": "ISC",
+  "engines": {
+    "node": "10.x"
+  },
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
     "autoprefixer": "^9.4.4",
