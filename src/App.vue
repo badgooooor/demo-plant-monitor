@@ -1,24 +1,30 @@
 <template>
   <div id="app-wrap">
-    <nav></nav>
+    <v-toolbar>
+      <v-toolbar-title>Plant Monitoring Dashboard</v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
     <main>
       <div class="container">
-        <v-container fluid fill-height>
+        <v-container fluid full-height grid-list-lg>
           <v-layout justify-center row wrap>
-            <h2>{{ message }}</h2>
-            <v-flex xs12 sm8 md4>
-              <v-card dark class="elevation-1 light-blue darken-1 flat">
+            <v-flex xs8>
+              <v-card color="green darken-1" class="white--text">
                 <v-card-title primary-title>
                   <div>
                     <div class="headline">Server operating status</div>
                     <ul>
-                      <li class="white-text">API    : {{ apiTest }}</li>
-                      <li class="white-text">Socket : {{ socketConnected }}</li>
+                      <li v-if="apiTest" class="white-text">API    : {{ apiTest }}</li>
+                      <li v-else class="white-text">API: Error</li>
+                      <li v-if="socketConnected" class="white-text">Socket : Connected!</li>
+                      <li v-else class="white-text">Socket: Not Connected</li>
                     </ul>
                   </div>
                 </v-card-title>
-              </v-card>
-              <v-card dark class="elevation-1 green darken-4 flat">
+              </v-card>  
+            </v-flex>
+            <v-flex xs8>
+              <v-card color="light-blue darken-4" class="white--text">
                 <v-card-title primary-title>
                   <div>
                     <div class="headline">Environment status</div>
@@ -28,9 +34,9 @@
                     </ul>
                   </div>
                 </v-card-title>
-              </v-card>
-            </v-flex>
-          </v-layout>
+              </v-card>  
+            </v-flex>    
+          </v-layout>     
         </v-container>
       </div>
     </main>
@@ -64,7 +70,7 @@ export default {
   data() {
     return {
       message: 'Plant Monitoring',
-      apiTest: '',
+      apiTest: false,
       socket: io(window.location.hostname),
       socketConnected: false,
       soilHumidity: 0,
@@ -75,10 +81,11 @@ export default {
     async getData() {
       try {
         const res = await axios.get(`${apiHost}/api/test`)
-        this.apiTest = res.data.message
+        const data = res.data.message
+        if (data == 'api works!') this.apiTest = true
       } catch(e) {
         console.log('Error in the api')
-        this.apiTest = 'api is broke!'
+        this.apiTest = false
       }
     }
   }
